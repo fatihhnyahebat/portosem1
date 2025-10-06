@@ -13,9 +13,9 @@
 
     <style>
         /* ========================================
-        SETUP DASAR & VARIABEL
-        ========================================
-        */
+         SETUP DASAR & VARIABEL
+         ========================================
+         */
         :root {
             --ivory-white: #F5F5DC;
             --charcoal-gray: #36454F;
@@ -34,6 +34,7 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 70px; /* Menambahkan ruang untuk header fixed */
         }
 
         body {
@@ -51,6 +52,8 @@
 
         section {
             padding: 100px 0;
+            position: relative; /* Diperlukan untuk beberapa efek */
+            overflow: hidden; /* Mencegah partikel keluar dari section */
         }
         
         h1, h2, h3 {
@@ -76,11 +79,117 @@
         }
 
         /* ========================================
-        HIASAN ELEGAN BARU (CSS)
-        ========================================
-        */
+         ELEMEN BARU: PRELOADER
+         ========================================
+         */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--ivory-white);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
 
-        /* 1. Animasi Scroll (Fade-in & Slide-up) */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--charcoal-gray);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+         HEADER (HEADERPAGEBAR)
+         ========================================
+         */
+        #header-pagebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(245, 245, 220, 0.85); /* Transparansi disesuaikan */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: top 0.3s, background-color 0.3s;
+        }
+
+        #header-pagebar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px; /* Tinggi header */
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--soft-black);
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--charcoal-gray);
+            font-weight: 700;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-gold);
+            transition: width 0.4s ease;
+        }
+
+        .main-nav a:hover {
+            color: var(--soft-black);
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger-menu {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--soft-black);
+            cursor: pointer;
+            z-index: 1100;
+        }
+        
+        /* ========================================
+         HIASAN ELEGAN (CSS)
+         ========================================
+         */
         .reveal {
             position: relative;
             transform: translateY(50px);
@@ -93,7 +202,6 @@
             opacity: 1;
         }
 
-        /* 2. Scrollbar Kustom yang Elegan */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -109,9 +217,9 @@
         }
 
         /* ========================================
-        BAGIAN BERANDA (HOME)
-        ========================================
-        */
+         BAGIAN BERANDA (HOME)
+         ========================================
+         */
         #home {
             display: flex;
             flex-direction: column;
@@ -119,8 +227,23 @@
             align-items: center;
             text-align: center;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.05);
-            padding: 20px;
+            /* === KODE DIPERBAIKI DI SINI === */
+            padding: 90px 20px 20px;
+            position: relative;
+        }
+
+        /* ELEMEN BARU: Latar Belakang Partikel */
+        #particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #home .profile-pic, #home h1, #home .status, #home .tagline, #home .cta-buttons {
+            z-index: 1; /* Pastikan konten di atas partikel */
         }
 
         #home .profile-pic {
@@ -136,21 +259,12 @@
         #home h1 {
             font-size: 4rem;
             margin-bottom: 10px;
+            text-shadow: 0px 2px 10px rgba(0,0,0,0.1);
         }
 
-        #home .status {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 10px;
-        }
-
-        #home .tagline {
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 30px;
-        }
+        #home .status, #home .tagline { max-width: 600px; margin-bottom: 15px; }
+        #home .tagline { font-size: 1.2rem; font-style: italic; margin-bottom: 30px; }
         
-        /* 3. Efek Tombol yang Ditingkatkan */
         .cta-buttons a {
             position: relative;
             text-decoration: none;
@@ -188,20 +302,11 @@
         }
         
         /* ========================================
-        BAGIAN TENTANG SAYA
-        ========================================
-        */
-        #about .about-content {
-            display: flex;
-            gap: 50px;
-            align-items: center;
-        }
-
-        #about .intro-paragraph {
-            flex: 2;
-            text-align: justify;
-        }
-
+         BAGIAN LAINNYA (TENTANG, PENDIDIKAN, DLL.)
+         ========================================
+         */
+        #about .about-content { display: flex; gap: 50px; align-items: center; }
+        #about .intro-paragraph { flex: 2; text-align: justify; }
         #about .biodata {
             flex: 1;
             background: #fff;
@@ -209,70 +314,46 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border-left: 5px solid var(--accent-gold);
+            transition: box-shadow 0.3s ease;
         }
-
+        #about .biodata:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
         #about .biodata ul { list-style: none; }
         #about .biodata li { margin-bottom: 10px; }
         #about .biodata strong { color: var(--soft-black); }
         
-        /* ========================================
-        BAGIAN PENDIDIKAN (TIMELINE)
-        ========================================
-        */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; }
         .timeline::after {
             content: '';
             position: absolute;
             width: 4px;
             background-color: var(--accent-gold);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            opacity: 0.3;
+            top: 0; bottom: 0; left: 50%;
+            margin-left: -2px; opacity: 0.3;
         }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-        }
-
+        .timeline-item { padding: 10px 40px; position: relative; width: 50%; }
         .timeline-item::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             background-color: var(--ivory-white);
             border: 4px solid var(--accent-gold);
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
+            top: 25px; border-radius: 50%; z-index: 1;
         }
-
         .timeline-item.left { left: 0; text-align: right; }
         .timeline-item.right { left: 50%; }
         .timeline-item.left::after { right: -10px; }
         .timeline-item.right::after { left: -10px; }
-
         .timeline-content {
             padding: 20px;
             background-color: #fff;
             border-radius: 6px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk hover */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
         .timeline-content:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.12);
         }
-        
         .timeline-content h3 { font-size: 1.5rem; }
         .timeline-content .year {
             font-style: italic;
@@ -280,50 +361,37 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
-        
         .timeline-content ul { list-style-position: inside; padding-left: 5px; }
 
-        /* ========================================
-        BAGIAN MINAT
-        ========================================
-        */
         .interests-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             text-align: center;
         }
-
         .interest-card {
             background: #fff;
             padding: 30px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease; /* Transisi diperhalus */
+            transition: all 0.3s ease;
         }
-
         .interest-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.03);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-
         .interest-card .icon {
             font-size: 3rem;
             color: var(--accent-gold);
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
         }
-
+        .interest-card:hover .icon { transform: scale(1.1); }
         .interest-card h3 { font-size: 1.5rem; }
         
-        /* ========================================
-        BAGIAN KONTAK
-        ========================================
-        */
         #contact .container { max-width: 800px; }
-        
         .contact-info { text-align: center; margin-bottom: 40px; }
         .contact-info p { margin-bottom: 20px; font-size: 1.1rem; }
-        
         .social-buttons a {
             text-decoration: none;
             color: var(--charcoal-gray);
@@ -334,14 +402,12 @@
             font-size: 1.2rem;
             transition: all 0.3s ease;
         }
-        
         .social-buttons a:hover {
             background-color: var(--charcoal-gray);
             color: white;
+            transform: translateY(-3px);
         }
-        
         .contact-form { display: flex; flex-direction: column; }
-
         .contact-form input,
         .contact-form textarea {
             width: 100%;
@@ -351,59 +417,101 @@
             border-radius: 5px;
             font-family: var(--font-body);
             font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        
+        /* PENINGKATAN: Efek Fokus pada Formulir */
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(184, 134, 11, 0.2);
+        }
         .contact-form button {
             cursor: pointer;
             background-color: var(--accent-gold);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 5px;
-            align-self: center;
-            transition: background-color 0.3s ease;
+            color: white; border: none; padding: 15px 30px;
+            font-size: 1rem; font-weight: 700;
+            border-radius: 5px; align-self: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
-        
         .contact-form button:hover {
             background-color: #a0740a;
+            transform: scale(1.05);
         }
 
         /* ========================================
-        BAGIAN FOOTER
-        ========================================
-        */
+         FOOTER & TOMBOL KEMBALI KE ATAS
+         ========================================
+         */
         footer {
             background-color: var(--soft-black);
             color: var(--ivory-white);
             text-align: center;
             padding: 30px 0;
         }
-        
         .footer-social-icons a {
             color: var(--ivory-white);
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s ease;
+            font-size: 1.5rem; margin: 0 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
-
-        .footer-social-icons a:hover { color: var(--accent-gold); }
+        .footer-social-icons a:hover { color: var(--accent-gold); transform: translateY(-3px); }
         footer p { margin-top: 15px; }
 
+        /* ELEMEN BARU: Tombol Kembali ke Atas */
+        #back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        #back-to-top:hover {
+            background-color: #a0740a;
+        }
+
         /* ========================================
-        RESPONSIVE DESIGN
-        ========================================
-        */
+         RESPONSIVE DESIGN
+         ========================================
+         */
         @media (max-width: 768px) {
             h1 { font-size: 3rem; }
             h2 { font-size: 2.5rem; }
-
+            
+            .main-nav {
+                position: fixed; top: 0; left: 0;
+                width: 100%; height: 100vh;
+                background-color: var(--ivory-white);
+                display: flex; flex-direction: column;
+                align-items: center; justify-content: center;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.5, 0, 0, 1);
+            }
+            .main-nav.active { transform: translateX(0); }
+            .main-nav ul { flex-direction: column; text-align: center; gap: 40px; }
+            .main-nav a { font-size: 1.5rem; }
+            .hamburger-menu { display: block; }
             #home .profile-pic { width: 150px; height: 150px; }
             .cta-buttons { display: flex; flex-direction: column; gap: 10px; align-items: center; }
-
             #about .about-content { flex-direction: column; }
-            
             .timeline::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
             .timeline-item.right, .timeline-item.left { left: 0; text-align: left; }
@@ -413,8 +521,31 @@
 </head>
 <body>
 
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header id="header-pagebar">
+        <div class="container">
+            <a href="#home" class="logo">Fatih T.</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang Saya</a></li>
+                    <li><a href="#education">Riwayat Pendidikan</a></li>
+                    <li><a href="#interests">Minat dan Ketertarikan</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger-menu" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
     <section id="home">
-        <img src="IMG_20250927_212850.jpg" alt="Foto Profil Fatih Taqiyyuddin" class="profile-pic reveal">
+        <div id="particles-js"></div>
+        
+        <img src="IMG-20250903-WA0025.jpeg.jpg" alt="Foto Profil Fatih Taqiyyuddin" class="profile-pic reveal">
         <h1 class="reveal">Fatih Taqiyyuddin</h1>
         <p class="status reveal">Mahasiswa Semester 1, Prodi Ilmu Komputer, Jurusan Matematika, Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Negeri Medan</p>
         <p class="tagline reveal">"Seorang pelajar yang antusias dengan minat pada teknologi, hukum, dan Analisis."</p>
@@ -526,41 +657,92 @@
         <div class="container">
             <div class="footer-social-icons">
                 <a href="mailto:fatihtaqiyyuddin113@gmail.com"><i class="fas fa-envelope"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/fatehh_aj?igsh=OHNmZjZ2dWprbXV2" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/qr/2QRC32A7YUV2C1" target="_blank"><i class="fab fa-whatsapp"></i></a>
             </div>
             <p>© 2025 Fatih Taqiyyuddin | Didesain dengan Gemini Ai😝</p>
         </div>
     </footer>
 
+    <a href="#home" id="back-to-top" aria-label="Kembali ke atas">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
     <script>
-        // Fungsi untuk memicu animasi saat elemen masuk ke viewport
+        // Fungsi Animasi Scroll (Reveal)
         function revealOnScroll() {
             const reveals = document.querySelectorAll('.reveal');
-
-            const observerOptions = {
-                root: null, // relative to the viewport
-                rootMargin: '0px',
-                threshold: 0.1 // 10% of item visible
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Opsional: berhenti mengamati setelah animasi berjalan
-                        // observer.unobserve(entry.target); 
                     }
                 });
             }, observerOptions);
-
-            reveals.forEach(reveal => {
-                observer.observe(reveal);
-            });
+            reveals.forEach(reveal => { observer.observe(reveal); });
         }
-
-        // Panggil fungsi setelah halaman dimuat
         document.addEventListener('DOMContentLoaded', revealOnScroll);
+
+        // Logika Hamburger Menu
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navMenu = document.querySelector('.main-nav');
+        const navLinks = document.querySelectorAll('.main-nav a');
+        const icon = hamburger.querySelector('i');
+
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+        hamburger.addEventListener('click', toggleMenu);
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) toggleMenu();
+            });
+        });
+
+        // ======================= JAVASCRIPT BARU =======================
+
+        window.addEventListener('load', () => {
+            // 1. Logika Preloader
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
+
+            // 2. Inisialisasi Animasi Partikel
+            particlesJS("particles-js", {
+                "particles": {
+                    "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                    "color": { "value": "#36454F" },
+                    "shape": { "type": "circle" },
+                    "opacity": { "value": 0.4, "random": false },
+                    "size": { "value": 3, "random": true },
+                    "line_linked": { "enable": true, "distance": 150, "color": "#B8860B", "opacity": 0.3, "width": 1 },
+                    "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                    "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } }
+                },
+                "retina_detect": true
+            });
+        });
+
+        // 3. Logika Tombol "Kembali ke Atas"
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        // ======================= AKHIR JAVASCRIPT BARU =======================
     </script>
 
 </body>
