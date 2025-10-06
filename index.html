@@ -34,7 +34,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 70px; /* Menambahkan ruang untuk header fixed */
+            scroll-padding-top: 100px; /* Menambahkan ruang untuk header fixed */
         }
 
         body {
@@ -227,7 +227,6 @@
             align-items: center;
             text-align: center;
             height: 100vh;
-            /* === KODE DIPERBAIKI LAGI DI SINI === */
             padding: 110px 20px 20px;
             position: relative;
         }
@@ -387,7 +386,15 @@
             transition: transform 0.3s ease;
         }
         .interest-card:hover .icon { transform: scale(1.1); }
-        .interest-card h3 { font-size: 1.5rem; }
+        .interest-card h3 { 
+            font-size: 1.5rem; 
+            margin-bottom: 10px; /* Tambahan margin untuk jarak */
+        }
+        .interest-card p { /* Style untuk deskripsi baru */
+            font-size: 0.95rem;
+            color: var(--charcoal-gray);
+            line-height: 1.6;
+        }
         
         #contact .container { max-width: 800px; }
         .contact-info { text-align: center; margin-bottom: 40px; }
@@ -545,7 +552,7 @@
     <section id="home">
         <div id="particles-js"></div>
         
-        <img src="IMG-20250903-WA0025.jpeg.jpg" alt="Foto Profil Fatih Taqiyyuddin" class="profile-pic reveal">
+        <img src="IMG_20250927_212850.jpg" alt="Foto Profil Fatih Taqiyyuddin" class="profile-pic reveal">
         <h1 class="reveal">Fatih Taqiyyuddin</h1>
         <p class="status reveal">Mahasiswa Semester 1, Prodi Ilmu Komputer, Jurusan Matematika, Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Negeri Medan</p>
         <p class="tagline reveal">"Seorang pelajar yang antusias dengan minat pada teknologi, hukum, dan Analisis."</p>
@@ -617,18 +624,22 @@
                 <div class="interest-card reveal">
                     <div class="icon"><i class="fas fa-laptop-code"></i></div>
                     <h3>Teknologi Komputer</h3>
+                    <p>Mengeksplorasi dunia digital, mulai dari pengembangan perangkat lunak hingga analisis sistem yang kompleks.</p>
                 </div>
                 <div class="interest-card reveal">
                     <div class="icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Keamanan Data</h3>
+                    <p>Tertarik pada ilmu perlindungan informasi di era digital dan memahami mekanisme pertahanan siber.</p>
                 </div>
                 <div class="interest-card reveal">
                     <div class="icon"><i class="fas fa-gavel"></i></div>
                     <h3>Hukum</h3>
+                    <p>Mempelajari kerangka aturan yang membentuk masyarakat dan bagaimana teknologi berinteraksi dengan hukum.</p>
                 </div>
                 <div class="interest-card reveal">
                     <div class="icon"><i class="fas fa-futbol"></i></div>
                     <h3>Olahraga</h3>
+                    <p>Menjaga keseimbangan hidup melalui aktivitas fisik, terutama sepak bola, untuk membangun kerja sama tim dan sportivitas.</p>
                 </div>
             </div>
         </section>
